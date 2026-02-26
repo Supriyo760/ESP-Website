@@ -181,11 +181,6 @@ class ESPErrorMiddleware(MiddlewareMixin):
             'You do not have permission to view this page. '
             'Try logging in with an account that has the required access.',
         ),
-        '500': (
-            'Server Error',
-            'An unexpected server error occurred. '
-            'Please try again in a moment.',
-        ),
     }
 
     def process_exception(self, request, exception):
