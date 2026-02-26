@@ -1,4 +1,4 @@
-====================
+﻿====================
 Student Applications
 ====================
 
@@ -17,7 +17,7 @@ Before using this code, a webmaster should have done all of the following:
 
 * Run migrations for the esp.application app
 * Install the new program modules (esp.program.modules.models.install)
-* Copy media/default_styles/admissions.css to media/styles/
+* Copy media/styles/admissions.css to media/styles/
 
 Formstack Form Setup Instructions
 =================================
