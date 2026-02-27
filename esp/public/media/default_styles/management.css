@@ -12,7 +12,8 @@ div .module_group_body ul {
     margin-top: 0px;
 }
 
-div .module_group_header, div .module_group_header_half {
+div .module_group_header,
+div .module_group_header_half {
     width: 100%;
     box-sizing: border-box;
     background-color: #000;
@@ -24,6 +25,7 @@ div .module_group_header, div .module_group_header_half {
     box-shadow: 3px 3px 5px #CCCCCC;
     border-radius: 5px;
 }
+
 .module_group_body .module_group .module_group_header {
     background-color: #737373;
 }
@@ -54,7 +56,7 @@ div .module_link_large {
 }
 
 div .module_link_large_dead {
-	width: calc(100% - 20px);
+    width: calc(100% - 20px);
     min-width: 200px;
     margin: 10px;
     padding: 6px;
@@ -63,12 +65,12 @@ div .module_link_large_dead {
     min-height: 75px;
     height: auto;
     border-radius: 4px;
-	cursor: default; 
-	background-color: gray;
+    cursor: default;
+    background-color: gray;
 }
 
 div .module_link_large_dead :hover {
-	background-color: gray;
+    background-color: gray;
 }
 
 div .module_link_main {
@@ -79,7 +81,7 @@ div .module_link_caption {
     font-size: 0.9em;
 }
 
-div .module_group_expandable + .module_group_body {
+div .module_group_expandable+.module_group_body {
     display: none;
 }
 
@@ -112,7 +114,7 @@ div .module_group_expandable + .module_group_body {
 @media (min-width:980px) {
     #program_vitals_wrapper .module_group_body:not(.flex) {
         columns: 2;
-        
+
         div {
             min-width: max(200px, 40%);
         }
@@ -124,8 +126,9 @@ div .module_group_expandable + .module_group_body {
     flex-wrap: wrap;
     column-gap: 20px;
     justify-content: center;
-        
-    div, table {
+
+    div,
+    table {
         flex: 1 1 0px;
         min-width: max(225px, 40%);
         max-width: 550px;
@@ -135,4 +138,117 @@ div .module_group_expandable + .module_group_body {
 
 #stats_tshirts .module_group_body {
     row-gap: 10px;
+}
+
+/* Issue #3699 UI Overhaul: Horizontal Timeline */
+.timeline-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.horizontal-timeline-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.horizontal-timeline {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.timeline-item {
+    flex: 0 0 auto;
+    width: 200px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 10px;
+    background: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Arrow connecting steps */
+.horizontal-timeline .timeline-item:not(:last-child)::after {
+    content: "\e080";
+    /* glyphicon-chevron-right */
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+    right: -17px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #999;
+}
+
+.timeline-content {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.timeline-status {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.timeline-status .glyphicon-remove {
+    color: #d9534f;
+}
+
+.timeline-status .glyphicon-ok {
+    color: #5cb85c;
+}
+
+/* Category Grid Header Togglability */
+div .module_group_header {
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+div .module_group_header:hover {
+    background-color: #333;
+}
+
+/* Better captions/tooltips for buttons */
+div .module_link_large {
+    position: relative;
+    overflow: visible;
+    /* tooltips can hang outside */
+}
+
+div .module_link_caption {
+    font-size: 0.85em;
+    font-weight: 500;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 6px 10px;
+    border-radius: 4px;
+    position: absolute;
+    bottom: -35px;
+    /* hang below */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, bottom 0.2s;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+div .module_link_large:hover .module_link_caption {
+    opacity: 1;
+    visibility: visible;
+    bottom: -30px;
+    /* slide up effect */
 }
