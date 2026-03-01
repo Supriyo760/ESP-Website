@@ -1647,14 +1647,14 @@ class BigBoardModuleTest(ProgramFrameworkTest):
         # Create one user and two preferences (star and priority) for the same class
         user = self.students[0]
         prog = self.program
-        
+
         # We need a section to link to
         cls = prog.classes()[0]
         sec = cls.get_sections()[0]
-        
+
         # Ensure BigBoardModule instance exists
         module = BigBoardModule()
-        
+
         # Pre-execution checks
         self._flush_cache()
         self.assertEqual(module.num_prefs(prog), 0)
