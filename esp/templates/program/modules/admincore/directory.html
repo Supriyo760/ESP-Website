@@ -39,6 +39,8 @@
                 $j(".horizontal-timeline-wrapper").slideDown();
             }
         });
+        $j(".switch input").trigger("change");
+
 
         // Ranked By Toggle
         $j(".ranked-by-menu").hide();
@@ -55,6 +57,15 @@
             }
         });
 
+        // Capture original checklist ordering on page load
+        (function () {
+            var ul = $j(".task-checklist-actual");
+            ul.children('li.checklist-item').each(function (index) {
+                // Store the original index so we can restore it later
+                $j(this).attr('data-original-index', index);
+            });
+        })();
+
         $j("#filter-sort-done").on("change", function () {
             var ul = $j(".task-checklist-actual");
             var listitems = ul.children('li.checklist-item').get();
@@ -66,7 +77,17 @@
                 });
                 $j.each(listitems, function (idx, itm) { ul.append(itm); });
             } else {
-                // Return to original ordering is complex, we'll just reload or leave as is.
+                // Restore original ordering using the stored data-original-index
+                listitems.sort(function (a, b) {
+                    var idxA = parseInt($j(a).attr('data-original-index'), 10);
+                    var idxB = parseInt($j(b).attr('data-original-index'), 10);
+                    if (isNaN(idxA)) { idxA = 0; }
+                    if (isNaN(idxB)) { idxB = 0; }
+                    return idxA - idxB;
+                });
+                $j.each(listitems, function (idx, itm) {
+                    ul.append(itm);
+                });
             }
         });
 
@@ -101,7 +122,7 @@
 
 {% block stylesheets %}
 {{ block.super }}
-<link rel="stylesheet" href="/media/styles/management.css" type="text/css" />
+<link rel="stylesheet" href="/media/styles/management_v2.css" type="text/css" />
 {% endblock %}
 
 {% block content %}
@@ -228,7 +249,8 @@
         </div>
 
         <div style="margin-top: 40px; text-align: center;">
-            <a href="#" style="color: #999; font-size: 1.5em;"><i class="glyphicon glyphicon-question-sign"></i></a>
+            <a href="https://wiki.learningu.org/Main_Page" target="_blank" style="color: #999; font-size: 1.5em;"
+                title="Help & Documentation"><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
     </div>
 
@@ -370,8 +392,8 @@
     </table>
 </div>
 
-<td colspan="2">
+<div style="width: 100%; margin-top: 20px;">
     {% render_inline_program_qsd program "manage:main_bottom" %}
-</td>
+</div>
 
 {% endblock %}
