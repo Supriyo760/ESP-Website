@@ -1634,6 +1634,7 @@ class ConfirmationEmailControllerTest(TestCase):
 
         self.assertEqual(mock_send_mail.call_count, 2)
 
+
 class BigBoardModuleTest(ProgramFrameworkTest):
     def test_double_count_prefs(self):
         """
@@ -1655,10 +1656,12 @@ class BigBoardModuleTest(ProgramFrameworkTest):
         module = BigBoardModule()
         
         # Pre-execution checks
+        self._flush_cache()
         self.assertEqual(module.num_prefs(prog), 0)
 
         # 1. Add a star (StudentSubjectInterest) to the parent_class
         StudentSubjectInterest.objects.create(user=user, subject=sec.parent_class)
+        self._flush_cache()
         self.assertEqual(module.num_prefs(prog), 1)
 
         # 2. Add a Priority/1 (StudentRegistration) to the section
@@ -1667,4 +1670,6 @@ class BigBoardModuleTest(ProgramFrameworkTest):
         
         # Because we only consider distinct (user, subject) pairs for preferences,
         # it should still be 1 preference (not 2).
+        self._flush_cache()
         self.assertEqual(module.num_prefs(prog), 1)
+
