@@ -239,15 +239,20 @@ all_global_tags = {
         'category': 'learn',
         'is_setting': True,
     },
-    'show_student_tshirt_size_options': {
+    'studentinfo_shirt_type_selection': {
         'is_boolean': True,
         'help_text': 'Show shirt size field in the student profile?',
         'default': False,
         'category': 'learn',
         'is_setting': True,
     },
-    'studentinfo_shirt_type_selection': {
+    'creditcard_required_if_amount_due': {
         'is_boolean': True,
+        'help_text': 'Make the Credit Card module required if the student owes an amount due for extra cost items. To use this, enable the Credit Card module but leave it unchecked as "Required".',
+        'default': False,
+        'category': 'learn',
+        'is_setting': True,
+    },
         'help_text': 'Show shirt type field in the student profile?',
         'default': False,
         'category': 'learn',

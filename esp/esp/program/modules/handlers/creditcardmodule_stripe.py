@@ -95,6 +95,26 @@ class CreditCardModule_Stripe(ProgramModuleObj):
         return IndividualAccountingController(self.program, user).has_paid()
     have_paid = isCompleted
 
+    def isRequired(self):
+        """
+        Credit Card Modules are typically optional. However, if the site tag
+        'creditcard_required_if_amount_due' is enabled for this program,
+        and the user currently has an outstanding balance > 0, we require it.
+        """
+        # First check if an admin explicitly marked it as required
+        if super(CreditCardModule_Stripe, self).isRequired():
+            return True
+
+        # Then enforce conditional logic if the tag is enabled
+        require_if_due = Tag.getTag('creditcard_required_if_amount_due', self.program)
+        if require_if_due:
+            user = getattr(self, 'user', get_current_request().user)
+            if user.is_authenticated:
+                iac = IndividualAccountingController(self.program, user)
+                if iac.amount_due() > 0:
+                    return True
+        return False
+
     def students(self, QObject = False):
         #   This query represented students who have a payment transfer from the outside
         pac = ProgramAccountingController(self.program)
