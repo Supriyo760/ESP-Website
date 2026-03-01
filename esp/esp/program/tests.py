@@ -1667,7 +1667,7 @@ class BigBoardModuleTest(ProgramFrameworkTest):
         # 2. Add a Priority/1 (StudentRegistration) to the section
         rt, _ = RegistrationType.objects.get_or_create(name='Priority/1', category='student')
         StudentRegistration.objects.create(user=user, section=sec, relationship=rt)
-        
+
         # Because we only consider distinct (user, subject) pairs for preferences,
         # it should still be 1 preference (not 2).
         self._flush_cache()
